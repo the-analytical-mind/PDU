@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome To Pooja's Official Drama Universe 😂</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #ff6eb4;
+    --purple: #a855f7;
+    --hot: #ff3d9a;
+    --lavender: #c084fc;
+    --peach: #fda4af;
+    --bg: #0f0514;
+    --bg2: #1a0828;
+    --glass: rgba(255,255,255,0.07);
+    --glass-border: rgba(255,255,255,0.15);
+    --text: #fff;
+    --text-muted: rgba(255,255,255,0.6);
+    --card-glow: rgba(168, 85, 247, 0.3);
+  }
+  .light-mode {
+    --bg: #fdf2ff;
+    --bg2: #f3e8ff;
+    --glass: rgba(255,255,255,0.55);
+    --glass-border: rgba(168,85,247,0.25);
+    --text: #2d0050;
+    --text-muted: #7c3aed;
+    --card-glow: rgba(168,85,247,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background 0.5s, color 0.5s;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E💅%3C/text%3E%3C/svg%3E") 8 8, auto;
+  }
+
+  /* ===== BACKGROUND ===== */
+  .bg-mesh {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(255,110,180,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 10%, rgba(168,85,247,0.2) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, rgba(253,164,175,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 10% 70%, rgba(192,132,252,0.12) 0%, transparent 50%);
+  }
+  .light-mode .bg-mesh {
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(255,110,180,0.12) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 10%, rgba(168,85,247,0.14) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, rgba(253,164,175,0.10) 0%, transparent 50%),
+      radial-gradient(ellipse at 10% 70%, rgba(192,132,252,0.10) 0%, transparent 50%);
+  }
+
+  /* ===== FLOATING EMOJIS ===== */
+  .floaters {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+  }
+  .floater {
+    position: absolute;
+    font-size: 1.6rem;
+    opacity: 0.55;
+    animation: floatUp linear infinite;
+    bottom: -60px;
+    user-select: none;
+  }
+  @keyframes floatUp {
+    0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 0; }
+    10%  { opacity: 0.55; }
+    90%  { opacity: 0.4; }
+    100% { transform: translateY(-110vh) rotate(360deg) scale(0.7); opacity: 0; }
+  }
+
+  /* ===== HEADER CONTROLS ===== */
+  .top-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: flex-end; gap: 10px;
+    padding: 12px 16px;
+    background: rgba(15,5,20,0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .light-mode .top-bar { background: rgba(253,242,255,0.7); }
+  .top-btn {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    color: var(--text);
+    border-radius: 50px;
+    padding: 7px 16px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    backdrop-filter: blur(8px);
+  }
+  .top-btn:hover { background: rgba(255,110,180,0.2); border-color: var(--pink); transform: scale(1.06); }
+
+  /* ===== MAIN WRAPPER ===== */
+  main {
+    position: relative; z-index: 1;
+    padding-top: 60px;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    text-align: center;
+    padding: 60px 20px 40px;
+    position: relative;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 50px;
+    margin-bottom: 22px;
+    box-shadow: 0 0 20px rgba(255,110,180,0.5);
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+  @keyframes pulseGlow {
+    0%,100% { box-shadow: 0 0 20px rgba(255,110,180,0.5); }
+    50%      { box-shadow: 0 0 40px rgba(255,110,180,0.85); }
+  }
+  .hero-title {
+    font-family: 'Pacifico', cursive;
+    font-size: clamp(2.2rem, 9vw, 4.5rem);
+    line-height: 1.15;
+    background: linear-gradient(135deg, #ff6eb4, #c084fc, #fda4af, #a855f7);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 4s ease infinite, titleBounce 3s ease-in-out infinite;
+    margin-bottom: 14px;
+  }
+  @keyframes gradientShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  @keyframes titleBounce {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-6px); }
+  }
+  .hero-sub {
+    font-size: clamp(0.85rem, 3.5vw, 1.1rem);
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    margin-bottom: 28px;
+    padding: 0 10px;
+  }
+  .hero-sub span { color: var(--lavender); }
+
+  /* crown emoji bouncing */
+  .crown { display: inline-block; animation: crownWiggle 1.5s ease-in-out infinite; font-size: 2rem; }
+  @keyframes crownWiggle {
+    0%,100% { transform: rotate(-8deg) scale(1); }
+    50%     { transform: rotate(8deg) scale(1.15); }
+  }
+
+  /* ===== SECTION WRAPPER ===== */
+  section { padding: 30px 16px; max-width: 700px; margin: 0 auto; }
+  .section-title {
+    font-family: 'Pacifico', cursive;
+    font-size: clamp(1.4rem, 5vw, 2rem);
+    text-align: center;
+    margin-bottom: 24px;
+    background: linear-gradient(90deg, var(--pink), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ===== GLASS CARD ===== */
+  .glass-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 22px;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    padding: 24px 20px;
+    transition: transform 0.35s cubic-bezier(.34,1.56,.64,1), box-shadow 0.35s;
+    position: relative; overflow: hidden;
+  }
+  .glass-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,110,180,0.07), transparent 60%);
+    pointer-events: none;
+  }
+  .glass-card:hover, .glass-card:active {
+    transform: translateY(-6px) scale(1.025);
+    box-shadow: 0 20px 50px var(--card-glow);
+  }
+
+  /* ===== NICKNAME CARDS ===== */
+  .nick-grid { display: grid; gap: 16px; }
+  .nick-card {
+    cursor: pointer;
+    user-select: none;
+  }
+  .nick-card:active { transform: scale(0.97) !important; }
+  .nick-emoji { font-size: 2.6rem; display: block; margin-bottom: 8px; animation: emojiSpin 4s ease-in-out infinite; }
+  @keyframes emojiSpin {
+    0%,100% { transform: rotate(-5deg); }
+    50%     { transform: rotate(5deg) scale(1.1); }
+  }
+  .nick-title {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.4rem;
+    background: linear-gradient(90deg, var(--pink), var(--lavender));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 6px;
+  }
+  .nick-meaning { font-size: 0.95rem; color: var(--text-muted); font-weight: 600; line-height: 1.5; }
+
+  /* click ripple */
+  .ripple {
+    position: absolute; border-radius: 50%;
+    background: rgba(255,110,180,0.35);
+    transform: scale(0);
+    animation: rippleEffect 0.6s linear;
+    pointer-events: none;
+  }
+  @keyframes rippleEffect {
+    to { transform: scale(4); opacity: 0; }
+  }
+
+  /* ===== MOOD METER ===== */
+  .mood-section { text-align: center; }
+  .mood-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--hot), var(--purple));
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 16px 36px;
+    font-family: 'Pacifico', cursive;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 8px 30px rgba(255,61,154,0.45);
+    animation: btnPulse 2.5s ease-in-out infinite;
+    position: relative; overflow: hidden;
+  }
+  @keyframes btnPulse {
+    0%,100% { box-shadow: 0 8px 30px rgba(255,61,154,0.45); }
+    50%      { box-shadow: 0 12px 50px rgba(255,61,154,0.8); }
+  }
+  .mood-btn:hover { transform: scale(1.06) rotate(-1deg); }
+  .mood-btn:active { transform: scale(0.97); }
+
+  .mood-display {
+    margin-top: 22px;
+    padding: 22px 20px;
+    border-radius: 22px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(14px);
+    transition: all 0.5s cubic-bezier(.34,1.56,.64,1);
+    display: none;
+  }
+  .mood-display.active { display: block; animation: moodPop 0.5s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes moodPop {
+    from { transform: scale(0.7) rotate(-5deg); opacity: 0; }
+    to   { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+  .mood-emoji { font-size: 3.5rem; display: block; margin-bottom: 10px; }
+  .mood-name {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.5rem;
+    background: linear-gradient(90deg, var(--pink), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .mood-desc { font-size: 0.9rem; color: var(--text-muted); margin-top: 6px; font-weight: 600; }
+
+  /* ===== DANGER BAR ===== */
+  .danger-section .glass-card { text-align: center; }
+  .danger-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--pink);
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .danger-bar-wrap {
+    background: rgba(255,255,255,0.1);
+    border-radius: 50px;
+    height: 22px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--glass-border);
+  }
+  .danger-bar-fill {
+    height: 100%;
+    border-radius: 50px;
+    background: linear-gradient(90deg, #ff6eb4, #ff3d9a, #a855f7);
+    background-size: 200% 100%;
+    animation: dangerAnim 2s linear infinite, dangerGrow 3s ease-out forwards;
+    position: relative;
+  }
+  @keyframes dangerAnim {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+  @keyframes dangerGrow {
+    from { width: 5%; }
+    to   { width: 96%; }
+  }
+  .danger-bar-fill::after {
+    content: '⚠️';
+    position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.9rem;
+  }
+  .danger-pct {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--peach);
+    margin-top: 10px;
+    font-weight: 700;
+  }
+  .danger-btn {
+    margin-top: 14px;
+    background: rgba(255,61,154,0.15);
+    border: 1px solid rgba(255,61,154,0.4);
+    color: var(--pink);
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .danger-btn:hover { background: rgba(255,61,154,0.3); transform: scale(1.05); }
+
+  /* ===== ROAST SECTION ===== */
+  .roast-list { display: grid; gap: 13px; }
+  .roast-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 16px 18px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: default;
+  }
+  .roast-item:hover { transform: translateX(6px); box-shadow: -4px 0 20px rgba(255,110,180,0.3); }
+  .roast-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .roast-text { font-size: 0.95rem; font-weight: 700; color: var(--text); line-height: 1.5; }
+  .light-mode .roast-text { color: var(--text); }
+
+  /* ===== POPUP ===== */
+  .popup-overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .popup-overlay.show { opacity: 1; pointer-events: all; }
+  .popup-box {
+    background: linear-gradient(135deg, #1a0828, #2d0050);
+    border: 1px solid var(--glass-border);
+    border-radius: 26px;
+    padding: 34px 28px;
+    text-align: center;
+    max-width: 360px; width: 100%;
+    transform: scale(0.8) rotate(-3deg);
+    transition: transform 0.4s cubic-bezier(.34,1.56,.64,1);
+    box-shadow: 0 30px 80px rgba(255,61,154,0.4);
+  }
+  .light-mode .popup-box { background: linear-gradient(135deg, #fdf2ff, #f3e8ff); }
+  .popup-overlay.show .popup-box { transform: scale(1) rotate(0deg); }
+  .popup-icon { font-size: 3rem; display: block; margin-bottom: 12px; }
+  .popup-title { font-family: 'Pacifico', cursive; font-size: 1.6rem; color: var(--pink); margin-bottom: 10px; }
+  .popup-msg { font-size: 1rem; color: var(--text-muted); font-weight: 600; line-height: 1.6; margin-bottom: 22px; }
+  .popup-close {
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    color: #fff; border: none; border-radius: 50px;
+    padding: 12px 30px;
+    font-family: 'Pacifico', cursive;
+    font-size: 1rem; cursor: pointer;
+    transition: all 0.3s;
+  }
+  .popup-close:hover { transform: scale(1.06); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 700;
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--glass-border);
+    margin-top: 20px;
+  }
+  footer span { color: var(--pink); }
+
+  /* ===== CLICK HEARTS ===== */
+  .click-heart {
+    position: fixed; pointer-events: none; z-index: 999;
+    font-size: 1.5rem;
+    animation: heartFly 1.2s ease-out forwards;
+  }
+  @keyframes heartFly {
+    0%   { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-120px) scale(0.5); opacity: 0; }
+  }
+
+  /* ===== SCROLL ANIMATIONS ===== */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: linear-gradient(var(--pink), var(--purple)); border-radius: 10px; }
+
+  /* ===== MUSIC BTN ===== */
+  .music-btn {
+    animation: rotateSpin 4s linear infinite paused;
+  }
+  .music-btn.playing { animation-play-state: running; }
+  @keyframes rotateSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* ===== STAR DIVIDER ===== */
+  .star-divider {
+    text-align: center;
+    font-size: 1.3rem;
+    letter-spacing: 10px;
+    color: var(--lavender);
+    margin: 10px 0 30px;
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+
+<!-- BG -->
+<div class="bg-mesh"></div>
+
+<!-- FLOATERS -->
+<div class="floaters" id="floaters"></div>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <button class="top-btn music-btn" id="musicBtn" onclick="toggleMusic()" title="Toggle Music">🎵 Music</button>
+  <button class="top-btn" id="darkBtn" onclick="toggleDark()">🌙 Dark</button>
+</div>
+
+<!-- POPUP -->
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <span class="popup-icon">🚨</span>
+    <div class="popup-title">WARNING!</div>
+    <div class="popup-msg">Too much gossip detected 🤭<br>Pooja has entered the chat.<br>Please evacuate the premises immediately. 😂</div>
+    <button class="popup-close" onclick="closePopup()">Theek Hai Baba 🙈</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main>
+
+  <!-- HERO -->
+  <section class="hero reveal">
+    <div class="hero-badge">⭐ OFFICIAL & CERTIFIED ⭐</div>
+    <h1 class="hero-title">Welcome To<br>Pooja's Official<br>Drama Universe 😂</h1>
+    <div class="crown">👑</div>
+    <p style="font-family:'Pacifico',cursive; font-size:clamp(1.1rem,5vw,1.9rem); margin:18px 0 10px; background:linear-gradient(90deg,#ff6eb4,#c084fc); -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+      She is cute… but dangerous 😭
+    </p>
+    <p class="hero-sub">
+      <span>Certified ChugliBaj</span> • <span>Professional Panchayitiya</span> • <span>Full-Time Gundi</span>
+    </p>
+    <div style="margin-top:10px; font-size:1.8rem; letter-spacing:4px;">💕 ✨ 🌸 ✨ 💕</div>
+  </section>
+
+  <!-- NICKNAME CARDS -->
+  <section class="reveal">
+    <h2 class="section-title">Her Many Titles 👑</h2>
+    <div class="star-divider">✦ ✦ ✦</div>
+    <div class="nick-grid">
+
+      <div class="glass-card nick-card" onclick="cardClick(this, '🤭 GOSSIP ACTIVATED!')">
+        <span class="nick-emoji">🤭</span>
+        <div class="nick-title">ChugliBaj</div>
+        <div class="nick-meaning">She knows every gossip before the internet does. Google should hire her, honestly.</div>
+      </div>
+
+      <div class="glass-card nick-card" onclick="cardClick(this, '😤 GUNDI MODE ON!')">
+        <span class="nick-emoji">😤</span>
+        <div class="nick-title">Gundi</div>
+        <div class="nick-meaning">She threatens me daily and still acts innocent. Oscar-worthy performance every single time.</div>
+      </div>
+
+      <div class="glass-card nick-card" onclick="cardClick(this, '🗣️ PANCHAYAT IN SESSION!')">
+        <span class="nick-emoji">🗣️</span>
+        <div class="nick-title">Panchayitiya</div>
+        <div class="nick-meaning">She can continue chatting forever without getting tired. 4G towers need breaks. She doesn't.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MOOD METER -->
+  <section class="mood-section reveal">
+    <h2 class="section-title">Pooja Mood Meter 🎭</h2>
+    <div class="star-divider">✦ ✦ ✦</div>
+    <button class="mood-btn" onclick="changeMood()">🎲 Detect Pooja's Mood</button>
+    <div class="mood-display glass-card" id="moodDisplay">
+      <span class="mood-emoji" id="moodEmoji">😡</span>
+      <div class="mood-name" id="moodName">Angry Gundi Mode</div>
+      <div class="mood-desc" id="moodDesc">Run. Just run. Don't ask questions.</div>
+    </div>
+  </section>
+
+  <!-- DANGER LEVEL -->
+  <section class="danger-section reveal">
+    <h2 class="section-title">Danger Level 🚨</h2>
+    <div class="star-divider">✦ ✦ ✦</div>
+    <div class="glass-card">
+      <div class="danger-label">⚡ POOJA THREAT ASSESSMENT ⚡</div>
+      <div class="danger-bar-wrap">
+        <div class="danger-bar-fill" id="dangerFill"></div>
+      </div>
+      <div class="danger-pct" id="dangerPct">Loading threat level... 🔍</div>
+      <button class="danger-btn" onclick="recalcDanger()">🔄 Recalculate Danger</button>
+    </div>
+  </section>
+
+  <!-- ROAST SECTION -->
+  <section class="reveal">
+    <h2 class="section-title">Breaking News 📰</h2>
+    <div class="star-divider">✦ ✦ ✦</div>
+    <div class="roast-list">
+      <div class="roast-item">
+        <span class="roast-icon">🔍</span>
+        <span class="roast-text">Can convert any normal conversation into a full-blown CID investigation.</span>
+      </div>
+      <div class="roast-item">
+        <span class="roast-icon">📡</span>
+        <span class="roast-text">Breaking News factory — operational since birth. No maintenance required.</span>
+      </div>
+      <div class="roast-item">
+        <span class="roast-icon">🚚</span>
+        <span class="roast-text">World's fastest rumor delivery service. Amazon se bhi fast. And always free.</span>
+      </div>
+      <div class="roast-item">
+        <span class="roast-icon">🎭</span>
+        <span class="roast-text">Starts drama, plays the victim, wins the Oscar. Every. Single. Time.</span>
+      </div>
+      <div class="roast-item">
+        <span class="roast-icon">📱</span>
+        <span class="roast-text">Her phone battery dies but the gossip? Eternal. Renewable energy.</span>
+      </div>
+      <div class="roast-item">
+        <span class="roast-icon">🧠</span>
+        <span class="roast-text">Remembers every fight from 2019 but forgets homework she agreed to help with.</span>
+      </div>
+      <div class="roast-item">
+        <span class="roast-icon">😇</span>
+        <span class="roast-text">Innocent face unlocked. Villain arc secretly running in the background.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPRECIATION -->
+  <section class="reveal" style="text-align:center;">
+    <div class="glass-card" style="padding:34px 22px;">
+      <div style="font-size:3rem; margin-bottom:14px;">💖</div>
+      <h2 style="font-family:'Pacifico',cursive; font-size:1.6rem; background:linear-gradient(90deg,#ff6eb4,#c084fc); -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; margin-bottom:14px;">But Honestly Though…</h2>
+      <p style="font-size:1rem; color:var(--text-muted); font-weight:700; line-height:1.8; max-width:400px; margin:0 auto;">
+        Behind all the drama, gossip, and panchayats — there's this one person who genuinely cares, makes everything chaotic and fun, and is absolutely irreplaceable. 🌸
+        <br><br>
+        <span style="color:var(--pink);">Pooja — you're the actual main character and we love you for it 💕</span>
+      </p>
+      <div style="margin-top:20px; font-size:2rem; letter-spacing:6px;">🌸 💖 ✨ 💖 🌸</div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div style="font-size:1.5rem; margin-bottom:10px;">😂 👑 😂</div>
+  Made with <span>fear</span>, respect, and a little bit of trauma by her friend 😂<br>
+  <span style="font-size:0.8rem; opacity:0.6; display:block; margin-top:6px;">© 2024 Pooja's Drama Universe • All rights chaotic</span>
+</footer>
+
+<script>
+  // ===== FLOATERS =====
+  const floaterEmojis = ['💕','🌸','✨','😂','🤭','💅','👑','🎀','💖','🌟','😭','🔥','🎉','💫','🌺','😤'];
+  const floatersCont = document.getElementById('floaters');
+  for (let i = 0; i < 22; i++) {
+    const el = document.createElement('div');
+    el.className = 'floater';
+    el.textContent = floaterEmojis[Math.floor(Math.random() * floaterEmojis.length)];
+    el.style.left = Math.random() * 100 + '%';
+    el.style.fontSize = (1 + Math.random() * 1.6) + 'rem';
+    el.style.animationDuration = (12 + Math.random() * 18) + 's';
+    el.style.animationDelay = (Math.random() * 15) + 's';
+    el.style.opacity = 0.3 + Math.random() * 0.4;
+    floatersCont.appendChild(el);
+  }
+
+  // ===== DARK MODE =====
+  let isDark = true;
+  function toggleDark() {
+    isDark = !isDark;
+    document.body.classList.toggle('light-mode', !isDark);
+    document.getElementById('darkBtn').textContent = isDark ? '🌙 Dark' : '☀️ Light';
+  }
+
+  // ===== MUSIC =====
+  let musicOn = false;
+  let audioCtx = null;
+  let musicInterval = null;
+  const musicBtn = document.getElementById('musicBtn');
+
+  function toggleMusic() {
+    musicOn = !musicOn;
+    musicBtn.textContent = musicOn ? '🎵 Stop' : '🎵 Music';
+    musicBtn.classList.toggle('playing', musicOn);
+    if (musicOn) playBeats();
+    else if (audioCtx) { audioCtx.close(); audioCtx = null; clearInterval(musicInterval); }
+  }
+
+  function playBeats() {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const notes = [261, 329, 392, 523, 440, 349, 392, 261];
+    let i = 0;
+    function playNote() {
+      if (!musicOn) return;
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.connect(g); g.connect(audioCtx.destination);
+      o.type = 'sine';
+      o.frequency.setValueAtTime(notes[i % notes.length], audioCtx.currentTime);
+      g.gain.setValueAtTime(0.12, audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+      o.start(); o.stop(audioCtx.currentTime + 0.4);
+      i++;
+    }
+    playNote();
+    musicInterval = setInterval(playNote, 600);
+  }
+
+  // ===== MOODS =====
+  const moods = [
+    { emoji:'😡', name:'Angry Gundi Mode', desc:'Run. Just run. Don\'t ask questions. Save yourself.' },
+    { emoji:'🤫', name:'Gossip Loading…', desc:'She\'s collecting classified intel. Do not disturb.' },
+    { emoji:'🎤', name:'Panchayat Started', desc:'Grab popcorn. This session has no end time.' },
+    { emoji:'😇', name:'Sweet Innocent Face', desc:'She\'s plotting something. The smile is suspicious.' },
+    { emoji:'💅', name:'Queen Energy', desc:'She woke up today and chose to be dangerous.' },
+    { emoji:'🕵️', name:'Investigation Mode', desc:'Every conversation is now a crime scene.' },
+    { emoji:'😴', name:'Recharging Mode', desc:'Temporary break. Drama resumes in 5… 4… 3…' },
+    { emoji:'🌸', name:'Soft Girl Era', desc:'Rare sighting. Screenshot this. It won\'t last.' },
+  ];
+  let lastMood = -1;
+
+  function changeMood() {
+    let idx;
+    do { idx = Math.floor(Math.random() * moods.length); } while (idx === lastMood);
+    lastMood = idx;
+    const m = moods[idx];
+    const d = document.getElementById('moodDisplay');
+    d.classList.remove('active');
+    setTimeout(() => {
+      document.getElementById('moodEmoji').textContent = m.emoji;
+      document.getElementById('moodName').textContent = m.name;
+      document.getElementById('moodDesc').textContent = m.desc;
+      d.classList.add('active');
+    }, 100);
+    spawnHearts();
+  }
+
+  // ===== DANGER BAR =====
+  let dangerVal = 96;
+  function recalcDanger() {
+    dangerVal = Math.floor(75 + Math.random() * 23);
+    const fill = document.getElementById('dangerFill');
+    fill.style.animation = 'none';
+    fill.style.width = dangerVal + '%';
+    setTimeout(() => { fill.style.animation = 'dangerAnim 2s linear infinite'; }, 50);
+    const labels = [
+      '⚠️ ' + dangerVal + '% — Send help immediately.',
+      '🚨 ' + dangerVal + '% — Evacuate now!',
+      '😱 ' + dangerVal + '% — Maximum drama detected.',
+      '🔥 ' + dangerVal + '% — Pooja.exe has no chill.',
+    ];
+    document.getElementById('dangerPct').textContent = labels[Math.floor(Math.random() * labels.length)];
+  }
+
+  setTimeout(() => {
+    recalcDanger();
+    document.getElementById('dangerPct').textContent = '🚨 96% — Maximum Pooja energy detected!';
+  }, 3200);
+
+  // ===== CARD CLICK =====
+  function cardClick(el, msg) {
+    const rect = el.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    ripple.style.width = ripple.style.height = Math.max(rect.width, rect.height) + 'px';
+    ripple.style.left = '0'; ripple.style.top = '0';
+    el.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 700);
+    showToast(msg);
+    spawnHearts();
+  }
+
+  // ===== TOAST =====
+  function showToast(msg) {
+    let t = document.getElementById('toast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'toast';
+      t.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:linear-gradient(135deg,#ff3d9a,#a855f7);color:#fff;padding:12px 24px;border-radius:50px;font-family:Nunito,sans-serif;font-weight:800;font-size:0.95rem;z-index:300;opacity:0;transition:all 0.4s;white-space:nowrap;box-shadow:0 8px 30px rgba(255,61,154,0.5);';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)';
+    clearTimeout(t._to);
+    t._to = setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(20px)'; }, 2200);
+  }
+
+  // ===== CLICK HEARTS =====
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('top-btn') || e.target.closest('.popup-overlay') || e.target.closest('.popup-close')) return;
+    spawnHeart(e.clientX, e.clientY);
+  });
+
+  function spawnHeart(x, y) {
+    const hearts = ['💕','💖','✨','🌸','💫','⭐'];
+    const h = document.createElement('div');
+    h.className = 'click-heart';
+    h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+    h.style.left = x + 'px';
+    h.style.top = y + 'px';
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 1300);
+  }
+
+  function spawnHearts() {
+    for (let i = 0; i < 5; i++) {
+      setTimeout(() => {
+        spawnHeart(
+          window.innerWidth * 0.2 + Math.random() * window.innerWidth * 0.6,
+          window.innerHeight * 0.3 + Math.random() * window.innerHeight * 0.4
+        );
+      }, i * 120);
+    }
+  }
+
+  // ===== POPUP =====
+  let popupShown = false;
+  setTimeout(() => { if (!popupShown) { showPopup(); popupShown = true; } }, 4000);
+  function showPopup() {
+    document.getElementById('popup').classList.add('show');
+  }
+  function closePopup() {
+    document.getElementById('popup').classList.remove('show');
+    spawnHearts();
+  }
+
+  // ===== SCROLL REVEAL =====
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // ===== AUTO POPUP CYCLE =====
+  let cycleCount = 0;
+  setInterval(() => {
+    cycleCount++;
+    if (cycleCount % 4 === 0 && !document.getElementById('popup').classList.contains('show')) {
+      showPopup();
+    }
+  }, 30000);
+</script>
+</body>
+</html>
