@@ -466,6 +466,81 @@
     margin: 10px 0 30px;
     opacity: 0.5;
   }
+
+  /* ===== GOSSIP TAGS ===== */
+  .g-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    background: rgba(255,110,180,0.15);
+    border: 1px solid rgba(255,110,180,0.3);
+    color: var(--pink);
+    animation: tagPop 0.4s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  @keyframes tagPop {
+    from { transform: scale(0); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+  }
+
+  /* ===== SURVIVAL ITEMS ===== */
+  .survival-item {
+    display: flex; align-items: center; gap: 13px;
+    padding: 13px 16px;
+    border-radius: 14px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    cursor: pointer;
+    transition: all 0.3s;
+    user-select: none;
+  }
+  .survival-item:hover { transform: translateX(4px); }
+  .survival-item.checked { background: rgba(255,110,180,0.12); border-color: rgba(255,110,180,0.4); }
+  .survival-check {
+    width: 26px; height: 26px; flex-shrink: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(255,110,180,0.5);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    background: transparent;
+  }
+  .survival-item.checked .survival-check { background: linear-gradient(135deg,#ff6eb4,#a855f7); border-color: transparent; }
+  .survival-text { font-size: 0.9rem; font-weight: 700; color: var(--text); line-height: 1.4; }
+  .survival-item.checked .survival-text { text-decoration: line-through; color: var(--text-muted); }
+
+  /* ===== LAWS ===== */
+  .law-card {
+    padding: 18px 20px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    display: flex; gap: 14px; align-items: flex-start;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .law-card:hover { transform: scale(1.02); box-shadow: 0 10px 30px var(--card-glow); }
+  .law-num { font-family: 'Pacifico', cursive; font-size: 1.3rem; color: var(--lavender); flex-shrink: 0; min-width: 36px; }
+  .law-title { font-weight: 900; font-size: 0.95rem; color: var(--text); margin-bottom: 4px; }
+  .law-desc { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; line-height: 1.5; }
+
+  /* ===== RATING ===== */
+  .rating-row { display: flex; flex-direction: column; gap: 7px; }
+  .rating-label { font-size: 0.9rem; font-weight: 800; color: var(--text); display: flex; gap: 8px; align-items: center; }
+  .rating-stars { display: flex; gap: 6px; }
+  .star-btn {
+    font-size: 1.5rem; cursor: pointer;
+    transition: transform 0.2s;
+    filter: grayscale(0.8);
+    background: none; border: none; padding: 2px; line-height: 1;
+  }
+  .star-btn:hover, .star-btn.lit { filter: grayscale(0); transform: scale(1.25) rotate(-5deg); }
+  .star-btn.lit { animation: starPop 0.3s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes starPop {
+    from { transform: scale(0.5); }
+    to   { transform: scale(1.25) rotate(-5deg); }
+  }
 </style>
 </head>
 <body>
@@ -488,7 +563,7 @@
     <span class="popup-icon">🚨</span>
     <div class="popup-title">WARNING!</div>
     <div class="popup-msg">Too much gossip detected 🤭<br>Pooja has entered the chat.<br>Please evacuate the premises immediately. 😂</div>
-    <button class="popup-close" onclick="closePopup()">Theek Hai Baba 🙈</button>
+    <button class="popup-close" onclick="closePopup()">Theek Hai Re 🙈</button>
   </div>
 </div>
 
@@ -598,17 +673,76 @@
     </div>
   </section>
 
-  <!-- APPRECIATION -->
-  <section class="reveal" style="text-align:center;">
-    <div class="glass-card" style="padding:34px 22px;">
-      <div style="font-size:3rem; margin-bottom:14px;">💖</div>
-      <h2 style="font-family:'Pacifico',cursive; font-size:1.6rem; background:linear-gradient(90deg,#ff6eb4,#c084fc); -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; margin-bottom:14px;">But Honestly Though…</h2>
-      <p style="font-size:1rem; color:var(--text-muted); font-weight:700; line-height:1.8; max-width:400px; margin:0 auto;">
-        Behind all the drama, gossip, and panchayats — there's this one person who genuinely cares, makes everything chaotic and fun, and is absolutely irreplaceable. 🌸
-        <br><br>
-        <span style="color:var(--pink);">Pooja — you're the actual main character and we love you for it 💕</span>
-      </p>
-      <div style="margin-top:20px; font-size:2rem; letter-spacing:6px;">🌸 💖 ✨ 💖 🌸</div>
+  <!-- GOSSIP GENERATOR -->
+  <section class="reveal">
+    <h2 class="section-title">Gossip Generator 🤫</h2>
+    <div class="star-divider">✦ ✦ ✦</div>
+    <div class="glass-card" style="text-align:center;">
+      <p style="font-size:0.88rem;color:var(--text-muted);font-weight:700;margin-bottom:18px;">Press to generate today's Pooja Gossip Report™</p>
+      <button class="mood-btn" id="gossipBtn" onclick="generateGossip()" style="font-size:1rem;padding:14px 28px;">📢 Generate Breaking News</button>
+      <div id="gossipOutput" style="display:none;margin-top:22px;padding:20px;background:rgba(255,110,180,0.08);border:1px dashed rgba(255,110,180,0.4);border-radius:16px;">
+        <div style="font-size:1.8rem;margin-bottom:8px;" id="gossipIcon">📰</div>
+        <div style="font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--pink);letter-spacing:2px;margin-bottom:8px;">BREAKING NEWS</div>
+        <div id="gossipText" style="font-size:1rem;font-weight:800;line-height:1.7;color:var(--text);"></div>
+        <div style="margin-top:12px;font-size:0.78rem;color:var(--text-muted);font-family:'Space Mono',monospace;" id="gossipTime"></div>
+      </div>
+      <div style="margin-top:14px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;" id="gossipTags"></div>
+    </div>
+  </section>
+
+  <!-- SURVIVAL GUIDE -->
+  <section class="reveal">
+    <h2 class="section-title">Survival Guide 🛡️</h2>
+    <div class="star-divider">✦ ✦ ✦</div>
+    <div class="glass-card">
+      <p style="text-align:center;font-size:0.88rem;color:var(--text-muted);font-weight:700;margin-bottom:20px;">Tick off what you've already survived with Pooja 😂</p>
+      <div id="survivalList" style="display:grid;gap:10px;"></div>
+      <div style="text-align:center;margin-top:20px;">
+        <div style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--pink);margin-bottom:8px;" id="survivalScore">Survival Score: 0 / 8</div>
+        <div style="height:10px;background:rgba(255,255,255,0.1);border-radius:50px;overflow:hidden;border:1px solid var(--glass-border);">
+          <div id="survivalBar" style="height:100%;width:0%;background:linear-gradient(90deg,#ff6eb4,#a855f7);border-radius:50px;transition:width 0.6s cubic-bezier(.34,1.56,.64,1);"></div>
+        </div>
+        <div id="survivalBadge" style="margin-top:12px;font-size:1.5rem;display:none;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POOJA'S LAWS -->
+  <section class="reveal">
+    <h2 class="section-title">Pooja's Laws of Nature 📜</h2>
+    <div class="star-divider">✦ ✦ ✦</div>
+    <div style="display:grid;gap:13px;" id="lawsList"></div>
+  </section>
+
+  <!-- SPIN THE WHEEL -->
+  <section class="reveal">
+    <h2 class="section-title">Spin The Drama Wheel 🎡</h2>
+    <div class="star-divider">✦ ✦ ✦</div>
+    <div class="glass-card" style="text-align:center;">
+      <p style="font-size:0.88rem;color:var(--text-muted);font-weight:700;margin-bottom:22px;">Spin to find out what Pooja is up to RIGHT NOW</p>
+      <div style="position:relative;width:200px;height:200px;margin:0 auto 22px;">
+        <canvas id="wheelCanvas" width="200" height="200" style="border-radius:50%;cursor:pointer;" onclick="spinWheel()"></canvas>
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:36px;height:36px;background:linear-gradient(135deg,#ff3d9a,#a855f7);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 15px rgba(255,61,154,0.6);pointer-events:none;">👑</div>
+        <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:1.5rem;pointer-events:none;">▼</div>
+      </div>
+      <button class="mood-btn" onclick="spinWheel()" id="spinBtn" style="font-size:1rem;padding:14px 28px;">🎡 SPIN IT!</button>
+      <div id="wheelResult" style="display:none;margin-top:18px;padding:16px 20px;background:rgba(255,110,180,0.1);border:1px solid rgba(255,110,180,0.3);border-radius:16px;animation:moodPop 0.5s cubic-bezier(.34,1.56,.64,1);">
+        <span id="wheelResultIcon" style="font-size:2rem;display:block;margin-bottom:6px;"></span>
+        <div id="wheelResultText" style="font-weight:800;font-size:1rem;color:var(--text);"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RATE POOJA -->
+  <section class="reveal">
+    <h2 class="section-title">Rate Pooja's Skills 🏆</h2>
+    <div class="star-divider">✦ ✦ ✦</div>
+    <div class="glass-card">
+      <div style="display:grid;gap:18px;" id="ratingList"></div>
+      <div style="text-align:center;margin-top:22px;">
+        <button class="danger-btn" onclick="submitRatings()" style="padding:12px 28px;font-size:0.95rem;">🏆 Submit My Ratings</button>
+        <div id="ratingResult" style="display:none;margin-top:14px;font-family:'Pacifico',cursive;font-size:1.2rem;background:linear-gradient(90deg,#ff6eb4,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;"></div>
+      </div>
     </div>
   </section>
 
@@ -814,6 +948,256 @@
       showPopup();
     }
   }, 30000);
+
+  // ===== GOSSIP GENERATOR =====
+  const gossips = [
+    { icon:'📰', text:'BREAKING: Local girl Pooja seen whispering to 3 people. Sources confirm she already knows your secrets from next week.', tags:['#BreakingNews','#ClassifiedInfo','#SheKnows'] },
+    { icon:'🔍', text:'JUST IN: Pooja overheard a conversation from 2 rooms away. Full investigation report to be released at the next panchayat.', tags:['#CIDMode','#SuperHearing','#NoPrivacy'] },
+    { icon:'📡', text:'LIVE UPDATE: Pooja has upgraded her gossip network. 5G towers are taking notes from her.', tags:['#FasterThan5G','#PoojaNet','#SignalBooster'] },
+    { icon:'🕵️', text:'ALERT: Pooja filed 3 FIRs today — all against people who didn\'t reply to her texts in time.', tags:['#JusticeServed','#ReplyOrElse','#TextBack'] },
+    { icon:'🎙️', text:'REPORT: Pooja\'s panchayat ran 2 hours over schedule. Opposition had no chance. She had receipts.', tags:['#Panchayat','#SheWon','#NoDebate'] },
+    { icon:'😂', text:'EXCLUSIVE: Pooja started a conflict this morning, solved it herself, and then blamed the other person. The cycle continues.', tags:['#GundiMath','#VictimArc','#WellPlayed'] },
+    { icon:'🌐', text:'WORLD NEWS: Scientists confirm Pooja processes gossip 40% faster than the average human. Studies ongoing.', tags:['#Science','#GossipPro','#PeerReviewed'] },
+    { icon:'🚨', text:'URGENT: Pooja logged on. Drama levels in a 5km radius have reached an all-time high. Stay indoors.', tags:['#EmergencyAlert','#SheIsOnline','#Evacuate'] },
+  ];
+  let lastGossip = -1;
+  function generateGossip() {
+    let idx;
+    do { idx = Math.floor(Math.random() * gossips.length); } while (idx === lastGossip);
+    lastGossip = idx;
+    const g = gossips[idx];
+    const out = document.getElementById('gossipOutput');
+    const tagsEl = document.getElementById('gossipTags');
+    out.style.display = 'none';
+    tagsEl.innerHTML = '';
+    const btn = document.getElementById('gossipBtn');
+    btn.textContent = '🔄 Generating...';
+    btn.disabled = true;
+    setTimeout(() => {
+      document.getElementById('gossipIcon').textContent = g.icon;
+      document.getElementById('gossipText').textContent = g.text;
+      const now = new Date();
+      document.getElementById('gossipTime').textContent = `📅 ${now.toLocaleDateString('en-IN')} • ${now.toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit'})} • Pooja Correspondent`;
+      out.style.display = 'block';
+      out.style.animation = 'none';
+      void out.offsetWidth;
+      out.style.animation = 'moodPop 0.5s cubic-bezier(.34,1.56,.64,1)';
+      g.tags.forEach((t, i) => {
+        const tag = document.createElement('span');
+        tag.className = 'g-tag';
+        tag.textContent = t;
+        tag.style.animationDelay = (i * 0.1) + 's';
+        tagsEl.appendChild(tag);
+      });
+      btn.textContent = '📢 Generate Breaking News';
+      btn.disabled = false;
+      spawnHearts();
+    }, 600);
+  }
+
+  // ===== SURVIVAL GUIDE =====
+  const survivalItems = [
+    { emoji:'😤', text:'Received a threat like "Main dekhti hoon tujhe"' },
+    { emoji:'🕵️', text:'Got interrogated about someone else\'s personal life' },
+    { emoji:'🗣️', text:'Sat through a 45-minute panchayat about nothing' },
+    { emoji:'🤭', text:'Found out she already knew your secret before you told her' },
+    { emoji:'😇', text:'Witnessed the Innocent Face™ after maximum chaos' },
+    { emoji:'📱', text:'Received 37 texts before you could reply to the first one' },
+    { emoji:'🔥', text:'Survived the silent treatment for 2 whole hours' },
+    { emoji:'😂', text:'Laughed so hard with her you forgot why you were even mad' },
+  ];
+  const survivalContainer = document.getElementById('survivalList');
+  let survivalChecked = 0;
+  survivalItems.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'survival-item';
+    div.innerHTML = `<div class="survival-check" id="sc${i}"></div><span class="survival-text">${item.emoji} ${item.text}</span>`;
+    div.onclick = () => {
+      div.classList.toggle('checked');
+      const check = document.getElementById(`sc${i}`);
+      if (div.classList.contains('checked')) {
+        check.textContent = '✓';
+        survivalChecked++;
+      } else {
+        check.textContent = '';
+        survivalChecked--;
+      }
+      const pct = Math.round((survivalChecked / survivalItems.length) * 100);
+      document.getElementById('survivalBar').style.width = pct + '%';
+      document.getElementById('survivalScore').textContent = `Survival Score: ${survivalChecked} / ${survivalItems.length}`;
+      const badge = document.getElementById('survivalBadge');
+      if (survivalChecked >= 8) { badge.style.display = 'block'; badge.textContent = '🏆 VETERAN SURVIVOR UNLOCKED!'; }
+      else if (survivalChecked >= 5) { badge.style.display = 'block'; badge.textContent = '🥈 EXPERIENCED SURVIVOR'; }
+      else if (survivalChecked >= 3) { badge.style.display = 'block'; badge.textContent = '🥉 ROOKIE SURVIVOR'; }
+      else { badge.style.display = 'none'; }
+      spawnHeart(div.getBoundingClientRect().x + 20, div.getBoundingClientRect().y + 10);
+    };
+    survivalContainer.appendChild(div);
+  });
+
+  // ===== POOJA'S LAWS =====
+  const laws = [
+    { num:'§1', icon:'📢', title:'Law of Infinite Gossip', desc:'For every gossip shared, two new ones are created. The universe cannot run out.' },
+    { num:'§2', icon:'😤', title:'Gundi\'s Conservation Law', desc:'The threat energy is never destroyed — only transferred. Usually to you.' },
+    { num:'§3', icon:'🧠', title:'The Memory Paradox', desc:'She forgets your birthday but remembers every fight since 2018 in full HD.' },
+    { num:'§4', icon:'😇', title:'Principle of Selective Innocence', desc:'Innocence level is inversely proportional to the amount of chaos she just caused.' },
+    { num:'§5', icon:'🗣️', title:'Panchayat Uncertainty Principle', desc:'You cannot know both the start time and the end time of a Pooja panchayat.' },
+    { num:'§6', icon:'📱', title:'Notification Storm Theory', desc:'If she texts once, 37 more are already on the way. No physics can stop them.' },
+  ];
+  const lawsContainer = document.getElementById('lawsList');
+  laws.forEach(l => {
+    const div = document.createElement('div');
+    div.className = 'law-card';
+    div.innerHTML = `<div class="law-num">${l.num}</div><div><div class="law-title">${l.icon} ${l.title}</div><div class="law-desc">${l.desc}</div></div>`;
+    lawsContainer.appendChild(div);
+  });
+
+  // ===== SPIN THE WHEEL =====
+  const wheelSegments = [
+    { label:'Gossiping 🤭', color:'#ff6eb4' },
+    { label:'Threatening 😤', color:'#a855f7' },
+    { label:'Panchayat 🗣️', color:'#ff3d9a' },
+    { label:'Being Cute 😇', color:'#c084fc' },
+    { label:'CID Mode 🕵️', color:'#fda4af' },
+    { label:'Ignoring 😒', color:'#e879f9' },
+    { label:'Laughing 😂', color:'#f472b6' },
+    { label:'Drama 🎭', color:'#d946ef' },
+  ];
+  const wheelResults = [
+    { icon:'🤭', text:'Currently distributing classified information to unauthorized personnel.' },
+    { icon:'😤', text:'Sending threatening voice notes with a calm face. Dangerous.' },
+    { icon:'🗣️', text:'Emergency panchayat called. Attendance is mandatory. No excuses.' },
+    { icon:'😇', text:'Acting sweet. This is suspicious. Check for hidden agenda.' },
+    { icon:'🕵️', text:'Running a full background check on someone\'s Instagram following list.' },
+    { icon:'😒', text:'Currently on silent mode. You did something. You know what it is.' },
+    { icon:'😂', text:'Laughing at something you said 3 days ago that just landed for her.' },
+    { icon:'🎭', text:'Main character moment loading… please wait… 3… 2… 1… DRAMA!' },
+  ];
+  const canvas = document.getElementById('wheelCanvas');
+  const ctx = canvas.getContext('2d');
+  let wheelAngle = 0;
+  let isSpinning = false;
+
+  function drawWheel(angle) {
+    const cx = 100, cy = 100, r = 94;
+    const seg = (Math.PI * 2) / wheelSegments.length;
+    ctx.clearRect(0,0,200,200);
+    wheelSegments.forEach((s, i) => {
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, r, angle + i * seg, angle + (i+1) * seg);
+      ctx.closePath();
+      ctx.fillStyle = s.color;
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(angle + i * seg + seg/2);
+      ctx.textAlign = 'right';
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 9px Nunito, sans-serif';
+      ctx.fillText(s.label, r - 6, 4);
+      ctx.restore();
+    });
+    // center circle
+    ctx.beginPath();
+    ctx.arc(cx, cy, 18, 0, Math.PI*2);
+    ctx.fillStyle = '#1a0828';
+    ctx.fill();
+  }
+
+  drawWheel(0);
+
+  function spinWheel() {
+    if (isSpinning) return;
+    isSpinning = true;
+    document.getElementById('spinBtn').textContent = '🌀 Spinning...';
+    document.getElementById('spinBtn').disabled = true;
+    document.getElementById('wheelResult').style.display = 'none';
+    const extraSpins = (4 + Math.random() * 4) * Math.PI * 2;
+    const targetAngle = wheelAngle + extraSpins;
+    const duration = 3000;
+    const start = performance.now();
+    const startAngle = wheelAngle;
+    function animate(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 4);
+      wheelAngle = startAngle + (targetAngle - startAngle) * ease;
+      drawWheel(wheelAngle);
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        wheelAngle = targetAngle % (Math.PI * 2);
+        isSpinning = false;
+        document.getElementById('spinBtn').textContent = '🎡 SPIN IT!';
+        document.getElementById('spinBtn').disabled = false;
+        // find winner: pointer at top = -PI/2
+        const seg = (Math.PI * 2) / wheelSegments.length;
+        const normalized = (((-wheelAngle - Math.PI/2) % (Math.PI*2)) + Math.PI*2) % (Math.PI*2);
+        const idx = Math.floor(normalized / seg) % wheelSegments.length;
+        const res = wheelResults[idx];
+        const resDiv = document.getElementById('wheelResult');
+        document.getElementById('wheelResultIcon').textContent = res.icon;
+        document.getElementById('wheelResultText').textContent = res.text;
+        resDiv.style.display = 'block';
+        resDiv.style.animation = 'none';
+        void resDiv.offsetWidth;
+        resDiv.style.animation = 'moodPop 0.5s cubic-bezier(.34,1.56,.64,1)';
+        spawnHearts();
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+
+  // ===== RATINGS =====
+  const ratingSkills = [
+    { icon:'🤭', label:'Gossip Collection Skills', id:'r1' },
+    { icon:'😤', label:'Threatening Ability', id:'r2' },
+    { icon:'🗣️', label:'Panchayat Duration', id:'r3' },
+    { icon:'😇', label:'Acting Innocent', id:'r4' },
+    { icon:'😂', label:'Making You Laugh', id:'r5' },
+  ];
+  const ratingContainer = document.getElementById('ratingList');
+  const userRatings = {};
+  ratingSkills.forEach(skill => {
+    userRatings[skill.id] = 0;
+    const row = document.createElement('div');
+    row.className = 'rating-row';
+    const starsHtml = [1,2,3,4,5].map(n =>
+      `<button class="star-btn" data-skill="${skill.id}" data-val="${n}" onclick="setRating('${skill.id}',${n})">⭐</button>`
+    ).join('');
+    row.innerHTML = `<div class="rating-label">${skill.icon} ${skill.label}</div><div class="rating-stars" id="stars_${skill.id}">${starsHtml}</div>`;
+    ratingContainer.appendChild(row);
+  });
+
+  function setRating(id, val) {
+    userRatings[id] = val;
+    const stars = document.querySelectorAll(`[data-skill="${id}"]`);
+    stars.forEach(s => {
+      const n = parseInt(s.dataset.val);
+      s.classList.toggle('lit', n <= val);
+    });
+    spawnHeart(
+      document.getElementById(`stars_${id}`).getBoundingClientRect().x + 40,
+      document.getElementById(`stars_${id}`).getBoundingClientRect().y
+    );
+  }
+
+  function submitRatings() {
+    const vals = Object.values(userRatings);
+    if (vals.some(v => v === 0)) { showToast('⚠️ Rate all skills first!'); return; }
+    const avg = (vals.reduce((a,b) => a+b,0) / vals.length).toFixed(1);
+    const comments = avg >= 4.5 ? '👑 Official Gundi Certified. Danger level: MAXIMUM.' :
+                     avg >= 3.5 ? '🏆 Highly skilled in the art of drama. Impressive.' :
+                     avg >= 2.5 ? '📊 Average drama queen. She can do better.' :
+                                  '😂 You were too kind. We all know the truth.';
+    document.getElementById('ratingResult').textContent = `⭐ ${avg}/5 — ${comments}`;
+    document.getElementById('ratingResult').style.display = 'block';
+    spawnHearts();
+  }
 </script>
 </body>
 </html>
